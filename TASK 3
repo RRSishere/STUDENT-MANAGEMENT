@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+struct Student {
+    std::string name;
+    double grade;
+};
+
+int main() {
+    std::vector<Student> students;
+    std::string name;
+    double grade;
+    char continueInput;
+
+    do {
+        Student student;
+        
+        std::cout << "Enter student name: ";
+        std::cin >> student.name;
+
+        std::cout << "Enter student grade: ";
+        std::cin >> student.grade;
+
+        students.push_back(student);
+
+        std::cout << "Do you want to add another student? (y/n): ";
+        std::cin >> continueInput;
+    } while (continueInput == 'y' || continueInput == 'Y');
+
+    double totalGrades = 0.0;
+    double highestGrade = students[0].grade;
+    double lowestGrade = students[0].grade;
+
+    for (const Student& student : students) {
+        totalGrades += student.grade;
+        if (student.grade > highestGrade) {
+            highestGrade = student.grade;
+        }
+        if (student.grade < lowestGrade) {
+            lowestGrade = student.grade;
+        }
+    }
+
+    double averageGrade = totalGrades / students.size();
+
+    std::cout << "\nStudent Grades Summary:" << std::endl;
+    std::cout << "Average Grade: " << averageGrade << std::endl;
+    std::cout << "Highest Grade: " << highestGrade << std::endl;
+    std::cout << "Lowest Grade: " << lowestGrade << std::endl;
+
+    return 0;
+}
